@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import ImageForm from "../imageForm";
 import { useRouter } from "next/navigation";
+import SearchMovie from "../searchMovie";
 
 const Header = () => {
   const router = useRouter();
@@ -17,6 +18,9 @@ const Header = () => {
           className="cursor-pointer"
         >
           <ImageForm src="/logo.png" alt="Logo" width={150} height={57} />
+        </li>
+        <li>
+          <SearchMovie />
         </li>
         <li className="flex items-center">
           <Link

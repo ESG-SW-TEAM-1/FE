@@ -1,21 +1,19 @@
 "use client";
 
-import { searchMovieList } from "@/api/openApi";
 import ButtonForm from "@/components/buttonForm";
 import InputForm from "@/components/inputForm";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SearchMovie = () => {
   const [movieTitle, setMovieTitle] = useState("");
-  const [movieList, setMovieList] = useState([]);
+  const router = useRouter();
 
-  const fetchMovieList = async () => {
-    try {
-      const data = await searchMovieList(movieTitle);
-      setMovieList(data.movieListResult.movieList);
-    } catch (error) {
-      console.error(error);
+  const handleSearch = () => {
+    if (movieTitle) {
+      router.push(`/search?title=${encodeURIComponent(movieTitle)}`);
     }
+    setMovieTitle("");
   };
 
   return (
@@ -30,7 +28,7 @@ const SearchMovie = () => {
 
         <div className="ml-2">
           <ButtonForm
-            onClick={fetchMovieList}
+            onClick={handleSearch}
             disabled={!movieTitle}
             className="py-2 px-6"
           >
@@ -38,35 +36,6 @@ const SearchMovie = () => {
           </ButtonForm>
         </div>
       </div>
-
-      {movieList.length > 0 && (
-        <div className="text-textActive">
-          {movieList.length === 0 ? (
-            <p>검색 결과가 없습니다.</p>
-          ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th>영화 제목</th>
-                  <th>장르</th>
-                  <th>개봉일</th>
-                  <th>제작 상태</th>
-                </tr>
-              </thead>
-              <tbody>
-                {movieList.map((movie, index) => (
-                  <tr key={index}>
-                    <td>{movie.movieNm}</td>
-                    <td>{movie.genreAlt}</td>
-                    <td>{movie.openDt}</td>
-                    <td>{movie.prdtStatNm}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      )}
     </div>
   );
 };

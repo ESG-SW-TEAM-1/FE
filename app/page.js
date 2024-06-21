@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { getDailyBoxOfficeList } from "../api/openApi";
 import { useRouter } from "next/navigation";
-import SearchMovie from "@/components/searchMovie";
 
 export default function Home() {
   const router = useRouter();
@@ -28,8 +27,6 @@ export default function Home() {
 
   return (
     <div className="container mx-auto mt-8">
-      <SearchMovie />
-
       <h1 className="text-3xl font-bold mb-8 text-white">
         Today's Top 10 Movies
       </h1>
@@ -45,6 +42,12 @@ export default function Home() {
             <h2 className="text-xl font-bold mb-2 text-textActive">
               {movie.movieNm}
             </h2>
+
+            {/* 박스 레이아웃 */}
+            <div className="bg-white h-[120px] w-[100px] text-gray-600">
+              이미지
+            </div>
+
             <p className="text-textInactive">Rank: {movie.rank}</p>
             <p className="text-textInactive">Audience: {movie.audiAcc}</p>
           </div>
