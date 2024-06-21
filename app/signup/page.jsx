@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const SignUp = () => {
+const SignUpPage = () => {
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -73,6 +73,7 @@ const SignUp = () => {
             placeholder="name"
             value={inputs.name}
             onChange={handleChange}
+            className="mb-2"
           />
           <InputForm
             label="EMAIL"
@@ -81,6 +82,7 @@ const SignUp = () => {
             placeholder="moving@movie.com"
             value={inputs.email}
             onChange={handleChange}
+            className="mb-2"
           />
           <InputForm
             label="NICKNAME"
@@ -89,6 +91,7 @@ const SignUp = () => {
             placeholder="nickname"
             value={inputs.nickname}
             onChange={handleChange}
+            className="mb-2"
           />
           <InputForm
             label="PASSWORD"
@@ -97,6 +100,7 @@ const SignUp = () => {
             placeholder="●●●●●●●●"
             value={inputs.password}
             onChange={handleChange}
+            className="mb-2"
           />
           <InputForm
             label="CONFIRM PASSWORD"
@@ -105,6 +109,7 @@ const SignUp = () => {
             placeholder="●●●●●●●●"
             value={inputs.confirmPassword}
             onChange={handleChange}
+            className="mb-2"
           />
           {errorMessage && (
             <span className="flex justify-center text-sm text-red-500">
@@ -120,12 +125,13 @@ const SignUp = () => {
               !inputs.password ||
               !inputs.confirmPassword
             }
+            className={"my-4"}
           >
             SIGN UP
           </ButtonForm>
         </form>
 
-        <div className="mt-6 text-sm flex justify-evenly items-center">
+        <div className="mt-2 text-sm flex justify-evenly items-center">
           <span className="text-textInactive">이미 계정이 있으신가요?</span>
           <Link href={"/login"} className="text-bold hover:underline">
             LOGIN
@@ -136,4 +142,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

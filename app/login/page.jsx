@@ -1,13 +1,12 @@
 "use client";
 
-import ImageForm from "@/components/imageForm";
 import ButtonForm from "@/components/buttonForm";
 import InputForm from "@/components/inputForm";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const LogIn = () => {
+const LogInPage = () => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
@@ -48,6 +47,7 @@ const LogIn = () => {
             placeholder="moving@movie.com"
             value={inputs.email}
             onChange={handleChange}
+            className="mb-2"
           />
           <InputForm
             label="PASSWORD"
@@ -56,6 +56,7 @@ const LogIn = () => {
             placeholder="●●●●●●●●"
             value={inputs.password}
             onChange={handleChange}
+            className="mb-2"
           />
           {errorMessage && (
             <span className="flex justify-center text-sm text-red-500">
@@ -65,12 +66,13 @@ const LogIn = () => {
           <ButtonForm
             type="submit"
             disabled={!inputs.email || !inputs.password}
+            className="my-4"
           >
             LOGIN
           </ButtonForm>
         </form>
 
-        <div className="mt-6 text-sm flex justify-evenly items-center">
+        <div className="mt-2 text-sm flex justify-evenly items-center">
           <span className="text-textInactive">아직 계정이 없으신가요?</span>
           <Link href={"/signup"} className="text-bold hover:underline">
             SIGN UP
@@ -81,4 +83,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default LogInPage;

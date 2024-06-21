@@ -21,7 +21,7 @@ const Header = () => {
         <li className="flex items-center">
           <Link
             href={"/login"}
-            className="text-center text-sm border border-primary-light bg-primary-light rounded-lg py-1 px-3 transition duration-300 ease-in-out hover:text-textActive"
+            className="text-center text-sm border border-primary-light bg-primary-light rounded-lg py-2 px-6 transition duration-300 ease-in-out hover:text-textActive"
           >
             LOGIN
           </Link>

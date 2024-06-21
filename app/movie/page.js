@@ -8,7 +8,7 @@ const MoviePage = () => {
   return (
     <div className="p-10">
       <main className="main-content">
-        <div className="youtube-container flex justify-center my-24">
+        <div className="youtube-container flex justify-center mb-24">
           <YouTubeEmbed videoId="EiCmnIaj4u8" width={560} height={315} />
         </div>
 

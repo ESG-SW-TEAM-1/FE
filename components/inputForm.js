@@ -1,9 +1,17 @@
 import React from "react";
 
-const InputForm = ({ label, type, name, placeholder, value, onChange }) => {
+const InputForm = ({
+  label,
+  className,
+  type,
+  name,
+  placeholder,
+  value,
+  onChange,
+}) => {
   return (
-    <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2">
+    <div>
+      <label className={`block text-textInactive text-sm ${className}`}>
         {label}
       </label>
       <input
@@ -12,7 +20,7 @@ const InputForm = ({ label, type, name, placeholder, value, onChange }) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="w-full border border-primary p-2 rounded-lg focus:border-primary-300 focus:ring-primary-300 focus:ring-2 focus:outline-none"
+        className={`w-full border border-primary p-2 ${className} rounded-lg focus:border-primary-300 focus:ring-primary-300 focus:ring-2 focus:outline-none`}
       />
     </div>
   );

@@ -1,17 +1,17 @@
 "use client";
 
-import { searchMovie } from "@/api/openApi";
+import { searchMovieList } from "@/api/openApi";
 import ButtonForm from "@/components/buttonForm";
 import InputForm from "@/components/inputForm";
 import React, { useState } from "react";
 
-const SearchPage = () => {
+const SearchMovie = () => {
   const [movieTitle, setMovieTitle] = useState("");
   const [movieList, setMovieList] = useState([]);
 
-  const getMovieList = async () => {
+  const fetchMovieList = async () => {
     try {
-      const data = await searchMovie(movieTitle);
+      const data = await searchMovieList(movieTitle);
       setMovieList(data.movieListResult.movieList);
     } catch (error) {
       console.error(error);
@@ -19,14 +19,25 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center align-center min-h-screen">
-      <InputForm
-        type="text"
-        placeholder="영화 제목"
-        value={movieTitle}
-        onChange={(e) => setMovieTitle(e.target.value)}
-      />
-      <ButtonForm onClick={getMovieList}>검색</ButtonForm>
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex items-center">
+        <InputForm
+          type="text"
+          placeholder="영화 제목"
+          value={movieTitle}
+          onChange={(e) => setMovieTitle(e.target.value)}
+        />
+
+        <div className="ml-2">
+          <ButtonForm
+            onClick={fetchMovieList}
+            disabled={!movieTitle}
+            className="py-2 px-6"
+          >
+            검색
+          </ButtonForm>
+        </div>
+      </div>
 
       {movieList.length > 0 && (
         <div className="text-textActive">
@@ -36,8 +47,7 @@ const SearchPage = () => {
             <table>
               <thead>
                 <tr>
-                  <th>영화 제목(kor)</th>
-                  <th>영화 유형</th>
+                  <th>영화 제목</th>
                   <th>장르</th>
                   <th>개봉일</th>
                   <th>제작 상태</th>
@@ -47,7 +57,6 @@ const SearchPage = () => {
                 {movieList.map((movie, index) => (
                   <tr key={index}>
                     <td>{movie.movieNm}</td>
-                    <td>{movie.typeNm}</td>
                     <td>{movie.genreAlt}</td>
                     <td>{movie.openDt}</td>
                     <td>{movie.prdtStatNm}</td>
@@ -62,4 +71,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default SearchMovie;
