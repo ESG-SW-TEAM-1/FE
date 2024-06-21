@@ -38,7 +38,7 @@ const LogIn = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-[350px]">
         <form onSubmit={handleLogin} className="flex flex-col justify-center">
           <InputForm
@@ -71,7 +71,7 @@ const LogIn = () => {
         </form>
 
         <div className="mt-6 text-sm flex justify-evenly items-center">
-          <span>회원이 아닌가요?</span>
+          <span className="text-textInactive">아직 계정이 없으신가요?</span>
           <Link href={"/signup"} className="text-bold hover:underline">
             SIGN UP
           </Link>
