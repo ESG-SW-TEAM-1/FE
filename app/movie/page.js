@@ -7,7 +7,44 @@ import React from "react";
 const MoviePage = () => {
   return (
     <div className="p-10">
-      <main className="main-content">
+      <main className="main-content px-52 md:px-64">
+
+        <div className="container1 flex flex-col justify-between items-center mb-44"> 
+          
+          <div className="container2 flex md:flex-row w-full justify-between items-start mb-4"> 
+            <div className="container3 md:mr-8">
+              <img
+                src="https://example.com/poster-image.jpg"
+                alt="Poster Image"
+                className="w-full md:w-1/2 mb-4 md:mb-0"
+              />
+            </div>
+            
+            <div className="container4 flex flex-col items-start">
+              <div className="mb-4">
+                <h1 className="text-2xl font-bold text-white">영화 제목 불러오기</h1>
+                <p className="mt-2 text-white">
+                  여기에는 영화에 대한 간단한 설명이 들어갑니다.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="container5 flex justify-center mt-4">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+              버튼 1
+            </button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              버튼 2
+            </button>
+          </div>
+          
+        </div>
+
+       
+        
+
+       
         <div className="youtube-container flex justify-center mb-24">
           <YouTubeEmbed videoId="EiCmnIaj4u8" width={560} height={315} />
         </div>
@@ -71,3 +108,4 @@ const MoviePage = () => {
 };
 
 export default MoviePage;
+
