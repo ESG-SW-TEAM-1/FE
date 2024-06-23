@@ -17,7 +17,7 @@ const MoviePage = () => {
                 src="https://example.com/poster-image.jpg"
                 alt="Poster Image"
                 className="w-full md:w-1/2 mb-4 md:mb-0"
-              />
+              />  
             </div>
             
             <div className="container4 flex flex-col items-start">
@@ -31,11 +31,13 @@ const MoviePage = () => {
           </div>
 
           <div className="container5 flex justify-center mt-4">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
-              버튼 1
+            <button className=" bg-[#25304A] hover:bg-[#4263EA] hover:text-white text-[#98A4B7] 
+            font-bold py-2 px-20 rounded mr-2">
+              좋아요
             </button>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              버튼 2
+            <button className=" bg-[#25304A] hover:bg-[#4263EA] hover:text-white text-[#98A4B7] 
+            font-bold py-2 px-20 rounded mr-2">
+              별로에요
             </button>
           </div>
           
