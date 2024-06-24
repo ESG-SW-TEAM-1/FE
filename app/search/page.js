@@ -25,10 +25,15 @@ const SearchPage = () => {
   }, [movieTitle]);
 
   return (
-    <div>
+    <div className="mt-8">
       {movieList.length > 0 ? (
-        <div className="grid grid-cols-4 gap-4" style={{ gridTemplateColumns: "repeat(4, 300px)", gridTemplateRows: "repeat(4, 400px)" }}>
-
+        <div
+          className="grid grid-cols-4 gap-4"
+          style={{
+            gridTemplateColumns: "repeat(4, 300px)",
+            gridTemplateRows: "repeat(4, 400px)",
+          }}
+        >
           {movieList.map((movie, index) => (
             <div key={index} className="bg-gray-200 p-4">
               <div className="grid grid-cols-2 gap-4">

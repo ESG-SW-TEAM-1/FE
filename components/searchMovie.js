@@ -4,6 +4,7 @@ import ButtonForm from "@/components/buttonForm";
 import InputForm from "@/components/inputForm";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import ImageForm from "./imageForm";
 
 const SearchMovie = () => {
   const [movieTitle, setMovieTitle] = useState("");
@@ -26,15 +27,18 @@ const SearchMovie = () => {
           onChange={(e) => setMovieTitle(e.target.value)}
         />
 
-        <div className="ml-2">
-          <ButtonForm
-            onClick={handleSearch}
-            disabled={!movieTitle}
-            className="py-2 px-6"
-          >
-            검색
-          </ButtonForm>
-        </div>
+        <ButtonForm
+          onClick={handleSearch}
+          disabled={!movieTitle}
+          className="ml-1"
+        >
+          <ImageForm
+            src={movieTitle ? "/search_w.svg" : "/search_b.svg"}
+            alt="Search"
+            width={30}
+            height={30}
+          />
+        </ButtonForm>
       </div>
     </div>
   );

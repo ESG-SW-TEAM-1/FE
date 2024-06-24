@@ -19,17 +19,19 @@ const Header = () => {
         >
           <ImageForm src="/logo.png" alt="Logo" width={150} height={57} />
         </li>
-        <li>
-          <SearchMovie />
-        </li>
-        <li className="flex items-center">
-          <Link
-            href={"/login"}
-            className="text-center text-sm border border-primary-light bg-primary-light rounded-lg py-2 px-6 transition duration-300 ease-in-out hover:text-textActive"
-          >
-            LOGIN
-          </Link>
-        </li>
+        <div className="flex ">
+          <li>
+            <SearchMovie />
+          </li>
+          <li className="flex items-center ml-4">
+            <Link
+              href={"/login"}
+              className="text-center text-sm border border-primary-light bg-primary-light rounded-lg py-2 px-6 transition duration-300 ease-in-out hover:text-textActive"
+            >
+              LOGIN
+            </Link>
+          </li>
+        </div>
       </ul>
     </header>
   );
