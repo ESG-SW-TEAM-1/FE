@@ -27,27 +27,23 @@ const SearchPage = () => {
   return (
     <div>
       {movieList.length > 0 ? (
-        <div className="text-textActive">
-          <table>
-            <thead>
-              <tr>
-                <th>영화 제목</th>
-                <th>장르</th>
-                <th>개봉일</th>
-                <th>제작 상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              {movieList.map((movie, index) => (
-                <tr key={index}>
-                  <td>{movie.movieNm}</td>
-                  <td>{movie.genreAlt}</td>
-                  <td>{movie.openDt}</td>
-                  <td>{movie.prdtStatNm}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-4 gap-4" style={{ gridTemplateColumns: "repeat(4, 300px)", gridTemplateRows: "repeat(4, 400px)" }}>
+
+          {movieList.map((movie, index) => (
+            <div key={index} className="bg-gray-200 p-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-1">
+                  <p>이미지</p>
+                </div>
+                <div className="col-span-1">
+                  <h1 className="font-bold text-1xl">{movie.movieNm}</h1>
+                  <p>장르: {movie.genreAlt}</p>
+                  <p>개봉일: {movie.openDt}</p>
+                  <p>제작 상태: {movie.prdtStatNm}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <p className="text-textInactive">검색 결과가 없습니다.</p>
