@@ -4,13 +4,15 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getMovieImg } from "@/api/kakaoApi";
 import { getDailyBoxOfficeList } from "@/api/kobisApi";
+import YouTubeEmbed from "@/components/youtube";
 
 const MovieDetail = () => {
   const router = useRouter();
-  const { movieCd } = router.query | {};
+  const { movieCd } = router.query || {};
 
   const [movieNm, setMovieNm] = useState("");
   const [movieImage, setMovieImage] = useState(null);
+  const [clickedButton, setClickedButton] = useState(null); // 클릭된 버튼 상태 추가
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -32,6 +34,15 @@ const MovieDetail = () => {
       fetchMovieDetails();
     }
   }, [movieCd]);
+
+  // 버튼 클릭 이벤트 핸들러 수정
+  const handleClick = (buttonType) => {
+    if (clickedButton === buttonType) {
+      setClickedButton(null); // 이미 클릭된 버튼을 다시 클릭하면 상태 초기화
+    } else {
+      setClickedButton(buttonType); // 클릭된 버튼 상태 설정
+    }
+  };
 
   return (
     <main className="main-content px-52 md:px-64">
@@ -67,41 +78,32 @@ const MovieDetail = () => {
 
             <div className="container5 flex justify-center mt-4">
               <button
-                className="flex justify-center items-center gap-2 bg-[#25304A] hover:bg-[#4263EA] hover:text-white text-[#98A4B7] 
-              font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out"
+                onClick={() => handleClick('like')} // 수정
+                className={`flex justify-center items-center gap-2 ${
+                  clickedButton === 'like' ? 'bg-[#4263EA] text-white' : 'bg-[#25304A] text-[#98A4B7]'
+                } font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out`}
               >
                 <img src="/smile.svg" alt="Smile Icon" height={30} width={30} />
                 <p>좋아요</p>
               </button>
               <button
-                className="flex justify-center items-center gap-2 bg-[#25304A] hover:bg-[#4263EA] hover:text-white text-[#98A4B7] 
-              font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out"
+                onClick={() => handleClick('dislike')} // 수정
+                className={`flex justify-center items-center gap-2 ${
+                  clickedButton === 'dislike' ? 'bg-[#4263EA] text-white' : 'bg-[#25304A] text-[#98A4B7]'
+                } font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out`}
               >
                 <img src="/sad.svg" alt="Sad Icon" height={30} width={30} />
-                <p>좋아요</p>
+                <p>별로에요</p>
               </button>
             </div>
           </div>
         </div>
       </div>
-    </main>
 
-    // <div className="container mx-auto my-8">
-    //   <h1 className="text-3xl font-bold mb-8 text-textActive">{movieNm}</h1>
-    //   <div className="h-[400px] w-[300px]">
-    //     {movieImage ? (
-    //       <img
-    //         src={movieImage}
-    //         alt={movieNm}
-    //         className="h-full w-full object-cover"
-    //       />
-    //     ) : (
-    //       <div className="flex items-center justify-center h-full w-full bg-textActive text-textInactive">
-    //         Loading
-    //       </div>
-    //     )}
-    //   </div>
-    // </div>
+      <div className="youtube-container flex justify-center mb-24">
+        <YouTubeEmbed videoId="EiCmnIaj4u8" width={800} height={450} />
+      </div>
+    </main>
   );
 };
 
