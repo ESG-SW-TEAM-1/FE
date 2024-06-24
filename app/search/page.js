@@ -2,9 +2,11 @@
 
 import { searchMovieList } from "@/api/kobisApi";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getMovieImg } from "@/api/kakaoApi";
 
 const SearchPage = () => {
+  const router = useRouter();
   const [movieList, setMovieList] = useState([]);
   const searchParams = useSearchParams();
   const movieTitle = searchParams.get("title");
@@ -14,7 +16,15 @@ const SearchPage = () => {
       if (movieTitle) {
         try {
           const data = await searchMovieList(movieTitle);
-          setMovieList(data.movieListResult.movieList);
+          const movies = data.movieListResult.movieList;
+          const moviesWithImages = await Promise.all(
+            movies.map(async (movie) => {
+              const imgData = await getMovieImg(movie.movieNm);
+              const imageUrl = imgData.documents[0]?.image_url || null;
+              return { ...movie, imageUrl };
+            })
+          );
+          setMovieList(moviesWithImages);
         } catch (error) {
           console.error(error);
         }
@@ -36,12 +46,23 @@ const SearchPage = () => {
         >
           {movieList.map((movie, index) => (
             <div key={index} className="bg-gray-200 p-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div
+                className="grid grid-cols-2 gap-4 hover:cursor-pointer"
+                onClick={() => router.push(`/movie/${movie.movieCd}`)}
+              >
                 <div className="col-span-1">
-                  <p>이미지</p>
+                  {movie.imageUrl ? (
+                    <img
+                      src={movie.imageUrl}
+                      alt={movie.movieNm}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <p className="text-textInactive">No Image</p>
+                  )}
                 </div>
                 <div className="col-span-1">
-                  <h1 className="font-bold text-1xl">{movie.movieNm}</h1>
+                  <h1 className="font-bold text-xl">{movie.movieNm}</h1>
                   <p>장르: {movie.genreAlt}</p>
                   <p>개봉일: {movie.openDt}</p>
                   <p>제작 상태: {movie.prdtStatNm}</p>
