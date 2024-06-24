@@ -1,6 +1,6 @@
 "use client";
 
-import { searchMovieList } from "@/api/openApi";
+import { searchMovieList } from "@/api/kobisApi";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -50,7 +50,7 @@ const SearchPage = () => {
           </table>
         </div>
       ) : (
-        <p>검색 결과가 없습니다.</p>
+        <p className="text-textInactive">검색 결과가 없습니다.</p>
       )}
     </div>
   );
