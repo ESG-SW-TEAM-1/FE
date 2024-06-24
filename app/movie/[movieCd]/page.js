@@ -1,38 +1,69 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getMovieImg } from "@/api/kakaoApi";
-import { getDailyBoxOfficeList } from "@/api/kobisApi";
+
+import { getDailyBoxOfficeList, getMovieDetailsByCode  } from "@/api/kobisApi";
 import YouTubeEmbed from "@/components/youtube";
 
 const MovieDetail = () => {
   const router = useRouter();
-  const { movieCd } = router.query || {};
+  const { movieCd } = useParams();
 
-  const [movieNm, setMovieNm] = useState("");
+  const [movieDetails, setMovieDetails] = useState(null);
   const [movieImage, setMovieImage] = useState(null);
   const [clickedButton, setClickedButton] = useState(null); // 클릭된 버튼 상태 추가
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const year = dateString.slice(0, 4);
+    const month = dateString.slice(4, 6);
+    const day = dateString.slice(6, 8);
+    return `${year}.${month}.${day}.`;
+  };
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const movieNameData = await getDailyBoxOfficeList(movieCd);
-        console.log(movieNameData);
-        const fetchedMovieNm = movieNameData?.movieNm || "";
+        if (movieCd) {
+          const movieCode = await getMovieDetailsByCode(movieCd);
+          console.log(movieCode);
 
-        setMovieNm(fetchedMovieNm);
+          const {
+            movieNm,
+            movieNmEn,
+            prdtYear,
+            showTm,
+            openDt,
+            nations,
+            genres,
+            audits,
+          } = movieCode || {};
+          const filteredMovieInfo = {
+            movieNm,
+            movieNmEn,
+            prdtYear,
+            showTm,
+            openDt: formatDate(openDt),
+            nationNm: nations?.[0]?.nationNm || "",
+            genres: genres?.map((genre) => genre.genreNm).join(", ") || "",
+            watchGradeNm: audits[0]?.watchGradeNm,
+          };
 
-        const imgData = await getMovieImg(fetchedMovieNm);
-        setMovieImage(imgData.documents[0]?.image_url || null);
+          setMovieDetails(filteredMovieInfo);
+
+          if (movieNm) {
+            const imgData = await getMovieImg(movieNm);
+            setMovieImage(imgData.documents[0]?.image_url || null);
+          }
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
-    if (movieCd) {
-      fetchMovieDetails();
-    }
+    fetchMovieDetails();
   }, [movieCd]);
 
   // 버튼 클릭 이벤트 핸들러 수정
@@ -45,15 +76,15 @@ const MovieDetail = () => {
   };
 
   return (
-    <main className="main-content px-52 md:px-64">
+    <main className="main-content px-52 my-10 md:px-64">
       <div className="container1 flex flex-col justify-between items-center mb-44">
         <div className="container2 flex md:flex-row w-full justify-between items-start mb-4">
-          <div className="container3 md:mr-8">
-            <div className="h-[400px] w-[300px]">
+          <div className="container3 md:mr-10">
+            <div className="h-[468px] w-[340px]">
               {movieImage ? (
                 <img
                   src={movieImage}
-                  alt={movieNm}
+                  alt={movieDetails?.movieNm}
                   className="h-full w-full object-cover"
                 />
               ) : (
@@ -65,32 +96,57 @@ const MovieDetail = () => {
           </div>
 
           <div className="flex flex-col">
-            <div className="container4 flex flex-col items-start">
-              <div className="mb-4">
-                <h1 className="text-2xl font-bold text-white">
-                  영화 제목 불러오기
+            <div className="container4 flex flex-col items-start mb-40">
+              <div className="my-4">
+                <h1 className="text-3xl font-bold text-white mb-2">
+                  <span>{movieDetails?.movieNm}</span>
                 </h1>
-                <p className="mt-2 text-white">
-                  여기에는 영화에 대한 간단한 설명이 들어갑니다.
-                </p>
+                <h1>
+                  <span className="text-lg text-textInactive">
+                    {movieDetails?.movieNmEn},{" "}
+                  </span>
+                  <span className="text-lg text-textInactive">
+                    {movieDetails?.prdtYear}
+                  </span>
+                </h1>
               </div>
+
+              <p className="my-2 text-white">
+                <span className="text-textInactive font-bold">개요</span>{" "}
+                <span className="ml-3">
+                  {movieDetails?.genres} ・ {movieDetails?.nationNm} ・{" "}
+                  {movieDetails?.showTm}분 ・ {movieDetails?.watchGradeNm}
+                </span>
+              </p>
+
+              <p className="my-2 text-white">
+                {" "}
+                <span className="text-textInactive font-bold">개봉</span>{" "}
+                <span className="ml-3">{movieDetails?.openDt}</span>
+              </p>
             </div>
 
-            <div className="container5 flex justify-center mt-4">
+            <div className="container5 flex justify-center">
               <button
+
                 onClick={() => handleClick('like')} // 수정
                 className={`flex justify-center items-center gap-2 ${
                   clickedButton === 'like' ? 'bg-[#4263EA] text-white' : 'bg-[#25304A] text-[#98A4B7]'
                 } font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out`}
+                className="flex justify-center items-center gap-2 bg-[#25304A] hover:bg-[#4263EA] hover:text-white text-[#98A4B7] 
+        font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out"
               >
                 <img src="/smile.svg" alt="Smile Icon" height={30} width={30} />
                 <p>좋아요</p>
               </button>
               <button
+
                 onClick={() => handleClick('dislike')} // 수정
                 className={`flex justify-center items-center gap-2 ${
                   clickedButton === 'dislike' ? 'bg-[#4263EA] text-white' : 'bg-[#25304A] text-[#98A4B7]'
                 } font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out`}
+                className="flex justify-center items-center gap-2 bg-[#25304A] hover:bg-[#4263EA] hover:text-white text-[#98A4B7] 
+        font-bold py-3 px-20 rounded transition duration-300 ease-in-out"
               >
                 <img src="/sad.svg" alt="Sad Icon" height={30} width={30} />
                 <p>별로에요</p>
