@@ -4,7 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getMovieImg } from "@/api/kakaoApi";
 
-import { getDailyBoxOfficeList, getMovieDetailsByCode  } from "@/api/kobisApi";
+import { getDailyBoxOfficeList, getMovieDetailsByCode } from "@/api/kobisApi";
 import YouTubeEmbed from "@/components/youtube";
 
 const MovieDetail = () => {
@@ -77,7 +77,7 @@ const MovieDetail = () => {
 
   return (
     <main className="main-content px-52 my-10 md:px-64">
-      <div className="container1 flex flex-col justify-between items-center mb-44">
+      <div className="container1 flex flex-col justify-between items-center mb-40">
         <div className="container2 flex md:flex-row w-full justify-between items-start mb-4">
           <div className="container3 md:mr-10">
             <div className="h-[468px] w-[340px]">
@@ -128,25 +128,23 @@ const MovieDetail = () => {
 
             <div className="container5 flex justify-center">
               <button
-
-                onClick={() => handleClick('like')} // 수정
+                onClick={() => handleClick("like")} // 수정
                 className={`flex justify-center items-center gap-2 ${
-                  clickedButton === 'like' ? 'bg-[#4263EA] text-white' : 'bg-[#25304A] text-[#98A4B7]'
+                  clickedButton === "like"
+                    ? "bg-[#4263EA] text-white"
+                    : "bg-[#25304A] text-[#98A4B7]"
                 } font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out`}
-                className="flex justify-center items-center gap-2 bg-[#25304A] hover:bg-[#4263EA] hover:text-white text-[#98A4B7] 
-        font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out"
               >
                 <img src="/smile.svg" alt="Smile Icon" height={30} width={30} />
                 <p>좋아요</p>
               </button>
               <button
-
-                onClick={() => handleClick('dislike')} // 수정
+                onClick={() => handleClick("dislike")} // 수정
                 className={`flex justify-center items-center gap-2 ${
-                  clickedButton === 'dislike' ? 'bg-[#4263EA] text-white' : 'bg-[#25304A] text-[#98A4B7]'
+                  clickedButton === "dislike"
+                    ? "bg-[#4263EA] text-white"
+                    : "bg-[#25304A] text-[#98A4B7]"
                 } font-bold py-3 px-20 rounded mr-2 transition duration-300 ease-in-out`}
-                className="flex justify-center items-center gap-2 bg-[#25304A] hover:bg-[#4263EA] hover:text-white text-[#98A4B7] 
-        font-bold py-3 px-20 rounded transition duration-300 ease-in-out"
               >
                 <img src="/sad.svg" alt="Sad Icon" height={30} width={30} />
                 <p>별로에요</p>
@@ -156,7 +154,9 @@ const MovieDetail = () => {
         </div>
       </div>
 
-      <div className="youtube-container flex justify-center mb-24">
+      <div className="border-b border-textInactive w-full my-6"></div>
+
+      <div className="youtube-container flex justify-center my-24">
         <YouTubeEmbed videoId="EiCmnIaj4u8" width={800} height={450} />
       </div>
     </main>
