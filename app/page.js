@@ -59,9 +59,7 @@ export default function Home() {
             <div
               key={movie.rank}
               className="p-4 border rounded-lg shadow-md hover:cursor-pointer"
-              onClick={() => {
-                router.push(`/movie`);
-              }}
+              onClick={() => router.push(`/movie/${movie.movieCd}`)}
             >
               <h2 className="text-xl font-bold mb-2 text-textActive">
                 {movie.movieNm}
@@ -75,7 +73,9 @@ export default function Home() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  "no image"
+                  <div className="flex items-center justify-center h-full w-full bg-textActive text-textInactive">
+                    Loading
+                  </div>
                 )}
               </div>
 
