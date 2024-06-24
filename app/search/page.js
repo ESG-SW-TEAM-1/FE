@@ -25,7 +25,7 @@ const SearchPage = () => {
   }, [movieTitle]);
 
   return (
-    <div className="mt-8">
+    <div className="my-10">
       {movieList.length > 0 ? (
         <div
           className="grid grid-cols-4 gap-4"

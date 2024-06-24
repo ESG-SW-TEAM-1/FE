@@ -50,3 +50,19 @@ export const searchMovieList = async (movieTitle) => {
     throw error;
   }
 };
+
+export const getMovieDetailsByCode = async (movieCd) => {
+  const url = `http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${apiKey1}&movieCd=${movieCd}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+    const data = await response.json();
+    return data.movieInfoResult.movieInfo;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

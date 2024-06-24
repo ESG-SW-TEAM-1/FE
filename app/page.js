@@ -48,6 +48,10 @@ export default function Home() {
     return count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  const handleMovieClick = (movieCd) => {
+    router.push(`/movie/${movieCd}`);
+  };
+
   return (
     <>
       <div className="container mx-auto my-8">
@@ -59,7 +63,7 @@ export default function Home() {
             <div
               key={movie.rank}
               className="p-4 border rounded-lg shadow-md hover:cursor-pointer"
-              onClick={() => router.push(`/movie/${movie.movieCd}`)}
+              onClick={() => handleMovieClick(movie.movieCd)}
             >
               <h2 className="text-xl font-bold mb-2 text-textActive">
                 {movie.movieNm}
