@@ -1,9 +1,9 @@
-const apiKey2 = process.env.NEXT_PUBLIC_TMDB_KEY; // TMDB api
+const tmdbApiKey = process.env.NEXT_PUBLIC_TMDB_KEY; // TMDB api
 
 export const getMovieDetailsFromTMDb = async (movieTitle) => {
   try {
     const searchResponse = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${apiKey2}&query=${encodeURIComponent(
+      `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${encodeURIComponent(
         movieTitle
       )}&language=ko-KR`
     );
@@ -24,7 +24,7 @@ export const getMovieDetailsFromTMDb = async (movieTitle) => {
 
     const movieId = movie.id;
     const detailsResponse = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey2}&language=ko-KR`
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${tmdbApiKey}&language=ko-KR`
     );
     const detailsData = await detailsResponse.json();
 

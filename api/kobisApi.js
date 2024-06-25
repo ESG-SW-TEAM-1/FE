@@ -1,4 +1,4 @@
-const apiKey1 = process.env.NEXT_PUBLIC_KOBIS_KEY; // 영화진흥위원회 api
+const kobisApiKey = process.env.NEXT_PUBLIC_KOBIS_KEY; // 영화진흥위원회 api
 
 const getCurrentDate = () => {
   const today = new Date();
@@ -21,7 +21,7 @@ const getCurrentDate = () => {
 
 export const getDailyBoxOfficeList = async () => {
   const targetDt = getCurrentDate();
-  const url = `http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${apiKey1}&targetDt=${targetDt}`;
+  const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${kobisApiKey}&targetDt=${targetDt}`;
 
   try {
     const response = await fetch(url);
@@ -37,7 +37,7 @@ export const getDailyBoxOfficeList = async () => {
 };
 
 export const searchMovieList = async (movieTitle) => {
-  const url = `http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=${apiKey1}&movieNm=${movieTitle}`;
+  const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=${kobisApiKey}&movieNm=${movieTitle}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -52,7 +52,7 @@ export const searchMovieList = async (movieTitle) => {
 };
 
 export const getMovieDetailsByCode = async (movieCd) => {
-  const url = `http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${apiKey1}&movieCd=${movieCd}`;
+  const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${kobisApiKey}&movieCd=${movieCd}`;
 
   try {
     const response = await fetch(url);
