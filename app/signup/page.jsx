@@ -58,8 +58,9 @@ const SignUpPage = () => {
       return;
     }
 
-    console.log(inputs);
-    router.push("/login");
+    // console.log(inputs);
+    // router.push("/login");
+    alert("회원가입 준비 중입니다.");
   };
 
   return (

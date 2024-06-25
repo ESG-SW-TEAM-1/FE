@@ -32,8 +32,9 @@ const LogInPage = () => {
     }
     setErrorMessage("");
 
-    console.log(inputs);
+    // console.log(inputs);
     // router.push("/");
+    alert("로그인 준비 중입니다.");
   };
 
   return (

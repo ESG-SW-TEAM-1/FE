@@ -4,7 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getMovieImg } from "@/api/kakaoApi";
 
-import { getDailyBoxOfficeList, getMovieDetailsByCode } from "@/api/kobisApi";
+import { getMovieDetailsByCode } from "@/api/kobisApi";
 import YouTubeEmbed from "@/components/youtube";
 
 const MovieDetail = () => {

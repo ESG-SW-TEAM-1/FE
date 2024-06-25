@@ -11,6 +11,14 @@ const SearchPage = () => {
   const searchParams = useSearchParams();
   const movieTitle = searchParams.get("title");
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const year = dateString.slice(0, 4);
+    const month = dateString.slice(4, 6);
+    const day = dateString.slice(6, 8);
+    return `${year}.${month}.${day}.`;
+  };
+
   useEffect(() => {
     const fetchMovieList = async () => {
       if (movieTitle) {
@@ -35,37 +43,37 @@ const SearchPage = () => {
   }, [movieTitle]);
 
   return (
-    <div className="my-10">
+    <div className="my-10 mx-auto text-textActive">
       {movieList.length > 0 ? (
         <div
-          className="grid grid-cols-4 gap-4"
+          className="grid grid-cols-4 gap-4 "
           style={{
             gridTemplateColumns: "repeat(4, 300px)",
             gridTemplateRows: "repeat(4, 400px)",
           }}
         >
           {movieList.map((movie, index) => (
-            <div key={index} className="bg-gray-200 p-4">
-              <div
-                className="grid grid-cols-2 gap-4 hover:cursor-pointer"
-                onClick={() => router.push(`/movie/${movie.movieCd}`)}
-              >
-                <div className="col-span-1">
-                  {movie.imageUrl ? (
-                    <img
-                      src={movie.imageUrl}
-                      alt={movie.movieNm}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <p className="text-textInactive">No Image</p>
-                  )}
-                </div>
-                <div className="col-span-1">
-                  <h1 className="font-bold text-xl">{movie.movieNm}</h1>
-                  <p>장르: {movie.genreAlt}</p>
-                  <p>개봉일: {movie.openDt}</p>
-                  <p>제작 상태: {movie.prdtStatNm}</p>
+            <div
+              key={index}
+              className="relative p-4 group hover:cursor-pointer"
+              onClick={() => router.push(`/movie/${movie.movieCd}`)}
+            >
+              <div className="relative h-full w-full">
+                {movie.imageUrl ? (
+                  <img
+                    src={movie.imageUrl}
+                    alt={movie.movieNm}
+                    className="h-full w-full object-cover group-hover:opacity-30 transition-opacity duration-300 ease-in-out"
+                  />
+                ) : (
+                  <p className="text-textInactive">No Image</p>
+                )}
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out text-white text-center">
+                  <h1 className="font-bold text-xl mb-4">{movie.movieNm}</h1>
+                  <p className="mb-2">
+                    {movie.genreAlt} ・ {movie.prdtStatNm}
+                  </p>
+                  {movie.openDt && <p>개봉일 {formatDate(movie.openDt)}</p>}
                 </div>
               </div>
             </div>
