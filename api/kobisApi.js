@@ -1,4 +1,4 @@
-const apiKey1 = process.env.NEXT_PUBLIC_API_KEY_1; // 영화진흥위원회 api
+const apiKey1 = process.env.NEXT_PUBLIC_KOBIS_KEY; // 영화진흥위원회 api
 
 const getCurrentDate = () => {
   const today = new Date();
