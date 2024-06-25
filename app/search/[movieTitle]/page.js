@@ -3,13 +3,12 @@
 import { searchMovieList } from "@/api/kobisApi";
 import { getMovieDetailsFromTMDb } from "@/api/tmdbApi";
 import React, { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 const SearchPage = () => {
   const router = useRouter();
   const [movieList, setMovieList] = useState([]);
-  const searchParams = useSearchParams();
-  const movieTitle = searchParams.get("title");
+  const { movieTitle } = useParams();
 
   const formatDate = (dateString) => {
     if (!dateString) return "";

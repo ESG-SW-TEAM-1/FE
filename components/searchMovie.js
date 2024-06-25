@@ -12,7 +12,7 @@ const SearchMovie = () => {
 
   const handleSearch = () => {
     if (movieTitle) {
-      router.push(`/search?title=${encodeURIComponent(movieTitle)}`);
+      router.push(`/search/${encodeURIComponent(movieTitle)}`);
     }
     setMovieTitle("");
   };
