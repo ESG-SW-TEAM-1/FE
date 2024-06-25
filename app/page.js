@@ -88,7 +88,7 @@ export default function Home() {
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full w-full bg-textActive text-textInactive">
-                    No Image
+                    Loading
                   </div>
                 )}
               </div>
