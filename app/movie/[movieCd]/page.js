@@ -2,17 +2,16 @@
 
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getMovieImg } from "@/api/kakaoApi";
-
 import { getMovieDetailsByCode } from "@/api/kobisApi";
 import YouTubeEmbed from "@/components/youtube";
+import { getMovieDetailsFromTMDb } from "@/api/tmdbApi";
 
 const MovieDetail = () => {
   const router = useRouter();
   const { movieCd } = useParams();
 
   const [movieDetails, setMovieDetails] = useState(null);
-  const [movieImage, setMovieImage] = useState(null);
+  const [tmdbDetails, setTmdbDetails] = useState(null);
   const [clickedButton, setClickedButton] = useState(null); // 클릭된 버튼 상태 추가
 
   const formatDate = (dateString) => {
@@ -54,8 +53,8 @@ const MovieDetail = () => {
           setMovieDetails(filteredMovieInfo);
 
           if (movieNm) {
-            const imgData = await getMovieImg(movieNm);
-            setMovieImage(imgData.documents[0]?.image_url || null);
+            const tmdbData = await getMovieDetailsFromTMDb(movieNm);
+            setTmdbDetails(tmdbData);
           }
         }
       } catch (error) {
@@ -77,13 +76,13 @@ const MovieDetail = () => {
 
   return (
     <main className="main-content px-52 my-10 md:px-64">
-      <div className="container1 flex flex-col justify-between items-center mb-40">
+      <div className="container1 flex flex-col justify-between items-center mb-20">
         <div className="container2 flex md:flex-row w-full justify-between items-start mb-4">
           <div className="container3 md:mr-10">
             <div className="h-[468px] w-[340px]">
-              {movieImage ? (
+              {tmdbDetails?.posterPath ? (
                 <img
-                  src={movieImage}
+                  src={tmdbDetails.posterPath}
                   alt={movieDetails?.movieNm}
                   className="h-full w-full object-cover"
                 />
@@ -96,7 +95,7 @@ const MovieDetail = () => {
           </div>
 
           <div className="flex flex-col">
-            <div className="container4 flex flex-col items-start mb-40">
+            <div className="container4 flex flex-col items-start mb-20">
               <div className="my-4">
                 <h1 className="text-3xl font-bold text-white mb-2">
                   <span>{movieDetails?.movieNm}</span>
@@ -124,6 +123,11 @@ const MovieDetail = () => {
                 <span className="text-textInactive font-bold">개봉</span>{" "}
                 <span className="ml-3">{movieDetails?.openDt}</span>
               </p>
+              {tmdbDetails?.overview && (
+                <p className="my-2 text-white">
+                  <span className="">{tmdbDetails.overview}</span>
+                </p>
+              )}
             </div>
 
             <div className="container5 flex justify-center">

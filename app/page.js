@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getDailyBoxOfficeList } from "../api/kobisApi";
+import { getDailyBoxOfficeList, getMovieDetailsByCode } from "../api/kobisApi";
 import { useRouter } from "next/navigation";
-import { getMovieImg } from "@/api/kakaoApi";
+import { getMovieDetailsFromTMDb } from "@/api/tmdbApi";
 
 export default function Home() {
   const router = useRouter();
@@ -22,16 +22,26 @@ export default function Home() {
 
         const images = await Promise.all(
           top10Movies.map(async (movie) => {
-            const imgData = await getMovieImg(movie.movieNm);
+            const kobisMovieDetails = await getMovieDetailsByCode(
+              movie.movieCd
+            );
+
+            const tmdbData = await getMovieDetailsFromTMDb(
+              kobisMovieDetails.movieNm,
+              kobisMovieDetails.movieNmEn
+            );
+
             return {
-              movieNm: movie.movieNm,
-              imgUrl: imgData.documents[0]?.image_url || null,
+              movieCd: movie.movieCd,
+              movieNm: kobisMovieDetails.movieNm,
+              movieNmEn: kobisMovieDetails.movieNmEn,
+              posterPath: tmdbData?.posterPath,
             };
           })
         );
 
         const imgMap = images.reduce((acc, img) => {
-          acc[img.movieNm] = img.imgUrl;
+          acc[img.movieNm] = img.posterPath;
           return acc;
         }, {});
 
@@ -78,7 +88,7 @@ export default function Home() {
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full w-full bg-textActive text-textInactive">
-                    Loading
+                    No Image
                   </div>
                 )}
               </div>

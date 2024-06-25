@@ -1,9 +1,9 @@
 "use client";
 
 import { searchMovieList } from "@/api/kobisApi";
+import { getMovieDetailsFromTMDb } from "@/api/tmdbApi";
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getMovieImg } from "@/api/kakaoApi";
 
 const SearchPage = () => {
   const router = useRouter();
@@ -27,9 +27,11 @@ const SearchPage = () => {
           const movies = data.movieListResult.movieList;
           const moviesWithImages = await Promise.all(
             movies.map(async (movie) => {
-              const imgData = await getMovieImg(movie.movieNm);
-              const imageUrl = imgData.documents[0]?.image_url || null;
-              return { ...movie, imageUrl };
+              const tmdbData = await getMovieDetailsFromTMDb(movie.movieNm);
+              return {
+                ...movie,
+                posterPath: tmdbData?.posterPath,
+              };
             })
           );
           setMovieList(moviesWithImages);
@@ -59,9 +61,9 @@ const SearchPage = () => {
               onClick={() => router.push(`/movie/${movie.movieCd}`)}
             >
               <div className="relative h-full w-full">
-                {movie.imageUrl ? (
+                {movie.posterPath ? (
                   <img
-                    src={movie.imageUrl}
+                    src={movie.posterPath}
                     alt={movie.movieNm}
                     className="h-full w-full object-cover group-hover:opacity-30 transition-opacity duration-300 ease-in-out"
                   />
