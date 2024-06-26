@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getMovieDetailsByCode } from "@/api/kobisApi";
 import YouTubeEmbed from "@/components/youtube";
@@ -8,7 +8,6 @@ import { getMovieDetailsFromTMDb } from "@/api/tmdbApi";
 import Ticketing from "@/components/ticketing";
 
 const MovieDetail = () => {
-  const router = useRouter();
   const { movieCd } = useParams();
 
   const [movieDetails, setMovieDetails] = useState(null);
@@ -85,7 +84,7 @@ const MovieDetail = () => {
                 <img
                   src={tmdbDetails.posterPath}
                   alt={movieDetails?.movieNm}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover rounded-xl"
                 />
               ) : (
                 <div className="flex items-center justify-center h-full w-full bg-textActive text-textInactive">

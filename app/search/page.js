@@ -65,7 +65,7 @@ const SearchPageContent = () => {
                   <img
                     src={movie.posterPath}
                     alt={movie.movieNm}
-                    className="h-full w-full object-cover group-hover:opacity-30 transition-opacity duration-300 ease-in-out"
+                    className="h-full w-full object-cover rounded-xl group-hover:opacity-30 transition-opacity duration-300 ease-in-out"
                   />
                 ) : (
                   <p className="text-textInactive">No Image</p>

@@ -64,7 +64,7 @@ export default function Top10Movies() {
   return (
     <div className="container mx-auto">
       <h1 className="text-3xl font-nanum-extra-bold mb-8 text-white">
-        Top 10 Movies
+        Today's Top 10 Movies
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {topMovies.map((movie) => (
@@ -87,8 +87,8 @@ export default function Top10Movies() {
               )}
 
               <div>
-                <p className="flex justify-evenly items-center my-2">
-                  <span className="text-white text-4xl font-nanum-heavy italic mr-3">
+                <p className="flex justify-evenly items-start my-2">
+                  <span className="text-blue-500 text-2xl font-nanum-extra-bold italic mr-3">
                     {movie.rank}
                   </span>
                   <span className="text-white text-md font-nanum-bold">
