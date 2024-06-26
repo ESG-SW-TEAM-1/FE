@@ -41,3 +41,16 @@ export const getMovieDetailsFromTMDb = async (movieTitle) => {
     return null;
   }
 };
+
+export const getUpcomingMovies = async () => {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=${tmdbApiKey}&language=ko-KR`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
