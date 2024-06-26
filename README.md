@@ -1,4 +1,4 @@
-# Moving Movie 🎬
+# Moving Movie 🌟
 
 <img src="https://github.com/ESG-SW-TEAM-1/FE/assets/127367484/8a3964e0-07b9-40de-9d84-7508af7de861" alt="mm" width="64px">
 
@@ -7,9 +7,11 @@
 ### ESG SW 1기 - Open API를 활용한 영화 웹 프로젝트
 
 
-🎞️ [Moving Movie](https://moving-movie.vercel.app/)
+🎬 [Moving Movie](https://moving-movie.vercel.app/)
 
 🐱 [GitHub Repository](https://github.com/ESG-SW-TEAM-1/FE)
+
+📋 [Notion](https://www.notion.so/Moving-Movie-c13f63ffd4c9412780175efa94e73b9b)
 
 ### 프로젝트 기간
 
