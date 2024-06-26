@@ -1,6 +1,6 @@
 # Moving Movie 🌟
 
-<img src="https://github.com/ESG-SW-TEAM-1/FE/assets/127367484/8a3964e0-07b9-40de-9d84-7508af7de861" alt="mm" width="64px">
+<img src="https://github.com/ESG-SW-TEAM-1/FE/assets/127367484/b1a81a69-ef2b-4d9a-bc32-158865970901" alt="mm" width="64px">
 
 <img src="https://github.com/ESG-SW-TEAM-1/FE/assets/127367484/422823be-d06d-4de6-a183-27efae49d494" alt="logo" width="150px" height="60px">
 
