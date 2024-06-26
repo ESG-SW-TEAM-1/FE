@@ -11,7 +11,7 @@
 
 🐱 [GitHub Repository](https://github.com/ESG-SW-TEAM-1/FE)
 
-📋 [Notion](https://www.notion.so/Moving-Movie-c13f63ffd4c9412780175efa94e73b9b)
+📋 [Notion](https://west-orbit-b88.notion.site/Moving-Movie-c13f63ffd4c9412780175efa94e73b9b)
 
 ### 프로젝트 기간
 
