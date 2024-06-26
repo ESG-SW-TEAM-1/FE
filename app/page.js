@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { getDailyBoxOfficeList, getMovieDetailsByCode } from "../api/kobisApi";
 import { useRouter } from "next/navigation";
-import { getMovieDetailsFromTMDb } from "@/api/tmdbApi";
+import { getUpcomingMovies, getMovieDetailsFromTMDb } from "@/api/tmdbApi";
 
 export default function Home() {
   const router = useRouter();
   const [topMovies, setTopMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [movieImages, setMovieImages] = useState({});
 
   useEffect(() => {
@@ -51,7 +52,46 @@ export default function Home() {
       }
     };
 
+    const fetchUpcomingMovies = async () => {
+      try {
+        const data = await getUpcomingMovies();
+        const upcomingMovies = data.results.slice(0, 10); //상위10개
+        // data.boxOfficeResult.dailyBoxOfficeList.slice(0,10);
+        setUpcomingMovies(upcomingMovies);
+
+        const images = await Promise.all(
+          upcomingMovies.map(async (movie) => {
+            const kobisMovieDetails = await getMovieDetailsByCode(
+              movie.movieCd
+            );
+
+            const tmdbData = await getMovieDetailsFromTMDb(
+              kobisMovieDetails.movieNm,
+              kobisMovieDetails.movieNmEn
+            );
+
+            return {
+              movieCd: movie.movieCd,
+              movieNm: kobisMovieDetails.movieNm,
+              movieNmEn: kobisMovieDetails.movieNmEn,
+              posterPath: tmdbData?.posterPath,
+            };
+          })
+        );
+
+        const imgMap = images.reduce((acc, img) => {
+          acc[img.movieNm] = img.posterPath;
+          return acc;
+        }, {});
+
+        setMovieImages(imgMap);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchTopMovies();
+    fetchUpcomingMovies();
   }, []);
 
   const formatCount = (count) => {
@@ -65,39 +105,97 @@ export default function Home() {
   return (
     <>
       <div className="container mx-auto my-8">
-        <h1 className="text-3xl font-bold mb-8 text-white">
+        <h1 className="text-3xl font-nanum-extra-bold mb-8 text-white">
           Today's Top 10 Movies
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {topMovies.map((movie) => (
             <div
               key={movie.rank}
-              className="p-4 border rounded-lg shadow-md hover:cursor-pointer"
+              className="p-4 mb-4 hover:cursor-pointer"
               onClick={() => handleMovieClick(movie.movieCd)}
             >
-              <h2 className="text-xl font-bold mb-2 text-textActive">
-                {movie.movieNm}
-              </h2>
-
-              <div className="h-[234px] w-[170px]">
+              <div className="h-[234px] w-[170px] my-4">
                 {movieImages[movie.movieNm] ? (
                   <img
                     src={movieImages[movie.movieNm]}
                     alt={movie.movieNm}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover rounded-xl opacity-70 hover:opacity-100"
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full w-full bg-textActive text-textInactive">
                     Loading
                   </div>
                 )}
-              </div>
 
-              <p className="text-textInactive">Rank: {movie.rank}</p>
-              <p className="text-textInactive">
-                Today: {formatCount(movie.audiCnt)} / Total:{" "}
-                {formatCount(movie.audiAcc)}
-              </p>
+                <div>
+                  <p className="flex justify-evenly items-center my-2">
+                    <span className="text-white text-4xl font-nanum-heavy italic mr-3">
+                      {movie.rank}
+                    </span>
+                    <span className="text-white text-md font-nanum-bold">
+                      {movie.movieNm}
+                    </span>
+                  </p>
+
+                  <p className="flex justify-center items-end">
+                    <span className="text-textInactive text-xs mr-2">
+                      Total{" "}
+                    </span>
+                    <span className="text-textActive text-sm">
+                      {formatCount(movie.audiAcc)}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="container mx-auto my-8">
+        <h1 className="text-3xl font-nanum-extra-bold mb-8 text-white">
+          개봉예정작
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          {upcomingMovies.map((movie) => (
+            <div
+              key={movie.rank}
+              className="p-4 mb-4 hover:cursor-pointer"
+              onClick={() => handleMovieClick(movie.movieCd)}
+            >
+              <div className="h-[234px] w-[170px] my-4">
+                {movieImages[movie.movieNm] ? (
+                  <img
+                    src={movieImages[movie.movieNm]}
+                    alt={movie.movieNm}
+                    className="h-full w-full object-cover rounded-xl opacity-70 hover:opacity-100"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full w-full bg-textActive text-textInactive">
+                    Loading
+                  </div>
+                )}
+
+                <div>
+                  <p className="flex justify-evenly items-center my-2">
+                    <span className="text-white text-4xl font-nanum-heavy italic mr-3">
+                      {movie.rank}
+                    </span>
+                    <span className="text-white text-md font-nanum-bold">
+                      {movie.movieNm}
+                    </span>
+                  </p>
+
+                  <p className="flex justify-center items-end">
+                    <span className="text-textInactive text-xs mr-2">
+                      Total{" "}
+                    </span>
+                    <span className="text-textActive text-sm">
+                      {formatCount(movie.audiAcc)}
+                    </span>
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
