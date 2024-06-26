@@ -2,13 +2,14 @@
 
 import { searchMovieList } from "@/api/kobisApi";
 import { getMovieDetailsFromTMDb } from "@/api/tmdbApi";
-import React, { useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const SearchPage = () => {
+const SearchPageContent = () => {
   const router = useRouter();
   const [movieList, setMovieList] = useState([]);
-  const { movieTitle } = useParams();
+  const searchParams = useSearchParams();
+  const movieTitle = searchParams.get("title");
 
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -84,6 +85,14 @@ const SearchPage = () => {
         <p className="text-textInactive">검색 결과가 없습니다.</p>
       )}
     </div>
+  );
+};
+
+const SearchPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 };
 

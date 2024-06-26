@@ -2,10 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "NanumSquareNeoLight";
+  src: url("/fonts/NanumSquareNeoLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("/fonts/NanumSquareNeo.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NanumSquareNeoBold";
+  src: url("/fonts/NanumSquareNeoBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NanumSquareNeoExtraBold";
+  src: url("/fonts/NanumSquareNeoExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NanumSquareNeoHeavy";
+  src: url("/fonts/NanumSquareNeoHeavy.ttf") format("truetype");
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "NanumSquareNeo", sans-serif;
 }
 
 body {
