@@ -78,8 +78,8 @@ export default function UpcomingMovies() {
               )}
 
               <div>
-                <p className="flex justify-evenly items-center my-2">
-                  <span className="text-white text-lg font-nanum-heavy italic mr-3">
+                <p className="flex justify-evenly items-start my-2">
+                  <span className="text-red-500 text-sm font-nanum-extra-bold italic mr-3">
                     {calculateDday(movie.release_date)}
                   </span>
                   <span className="text-white text-md font-nanum-bold">
