@@ -1,11 +1,18 @@
-# Moving Movie 🎬 
+# Moving Movie 🎬
+
+<img src="https://github.com/ESG-SW-TEAM-1/FE/assets/127367484/8a3964e0-07b9-40de-9d84-7508af7de861" alt="mm" width="64px">
+
+<img src="https://github.com/ESG-SW-TEAM-1/FE/assets/127367484/422823be-d06d-4de6-a183-27efae49d494" alt="logo" width="150px" height="60px">
+
 ### ESG SW 1기 - Open API를 활용한 영화 웹 프로젝트
 
-🎞️ <a href="https://moving-movie.vercel.app/" target="_blank">Moving Movie</a>
 
-🐱 <a href="https://github.com/ESG-SW-TEAM-1/FE" target="_blank">GitHub Repository</a>
+🎞️ [Moving Movie](https://moving-movie.vercel.app/)
+
+🐱 [GitHub Repository](https://github.com/ESG-SW-TEAM-1/FE)
 
 ### 프로젝트 기간
+
 2024.06.10 ~ 2024.06.27
 
 ### 기술 스택
@@ -19,7 +26,7 @@ JavaScript ∙ React ∙ Next.js ∙ Tailwind CSS
 - 사용자 인증(로그인, 회원가입 준비중)
 
 ### 팀원
-- <a href="https://github.com/Chai-Lynn" target="_blank">김채린</a>
-- <a href="https://github.com/mkyushin" target="_blank">신민규</a>
-- <a href="https://github.com/Yes2eul" target="_blank">신예슬</a>
-- <a href="https://github.com/nowgnoesiohc" target="_blank">최성원</a>
+- [김채린](https://github.com/Chai-Lynn)
+- [신민규](https://github.com/mkyushin)
+- [신예슬](https://github.com/Yes2eul)
+- [최성원](https://github.com/nowgnoesiohc)
