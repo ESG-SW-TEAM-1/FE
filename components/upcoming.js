@@ -13,7 +13,7 @@ export default function UpcomingMovies() {
         const data = await getUpcomingMovies();
         const upcomingMovies = data.results.slice(0, 10);
         setUpcomingMovies(upcomingMovies);
-        console.log(upcomingMovies);
+        // console.log(upcomingMovies);
 
         const images = await Promise.all(
           upcomingMovies.map(async (movie) => {
