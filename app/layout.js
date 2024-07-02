@@ -16,6 +16,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="XIsRXS6AFkwK7jZTBa9rDYbx_l1qZ1Q4W0JLST5hbgc"
+        />
+      </head>
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <Header />
         <main className="flex-grow flex justify-center items-center px-10">
